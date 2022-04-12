@@ -1,0 +1,32 @@
+﻿//JSON 扩展
+
+import console;
+import inet.http;
+import web.script.json; //导入 web.script + json2
+
+//创建 JScript 解释器
+var vm = web.script();
+
+//添加脚本，多次写入此属性是添加脚本不是覆盖替换脚本
+vm.script = /*
+function test(data) { 
+	//return JSON.stringify(data); // 已自动引入 JSON2
+	return [data[1],data[2]]; 
+}
+*/
+
+var arr = {
+	{50,80};
+	{20,24}; 
+	{100,103};
+	{4,8};
+}
+
+/*
+通过 vm.json.test 调用 JS 函数，作用与调用 vm.script.text 类似，
+但 vm.json.test 会自动使用 JSON 转换参数与返回值，因此可以传输 JSON 支持的所有对象。
+*/
+var ret = vm.json.test( arr );
+
+console.dump( ret );
+console.pause();
